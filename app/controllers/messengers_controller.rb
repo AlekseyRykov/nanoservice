@@ -4,7 +4,9 @@ class MessengersController < ApplicationController
   # GET /messengers
   # GET /messengers.json
   def index
-    @messengers = Messenger.all
+    @hipchat = Hipchat.all
+    @slack = Slack.all
+    @telegram = Telegram.all
   end
 
   # GET /messengers/1

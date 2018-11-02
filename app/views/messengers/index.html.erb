@@ -1,25 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Messengers</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @messengers.each do |messenger| %>
-      <tr>
-        <td><%= link_to 'Show', messenger %></td>
-        <td><%= link_to 'Edit', edit_messenger_path(messenger) %></td>
-        <td><%= link_to 'Destroy', messenger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+    <h2>HipChat Room</h2>
+    <% @hipchat.each do |hm| %>
+      <h5><%= link_to hm.title, hm %></h5>
+      <p><small><%= hm.description %></small></p>
+      <p><small><em>Author: <%= hm.author %></em></small></p>
+      <hr>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <div class="column" style="background-color:#bbb;">
+    <h2>Slack Room</h2>
+    <% @slack.each do |sm| %>
+      <h5><%= link_to sm.title, sm %></h5>
+      <p><small><%= sm.description %></small></p>
+      <p><small><em>Author: <%= sm.author %></em></small></p>
+      <hr>
+    <% end %>
+  </div>
+  <div class="column" style="background-color:#ccc;">
+    <h2>Telegram Room</h2>
+    <% @telegram.each do |tm| %>
+      <h5><%= link_to tm.title, tm %></h5>
+      <p><small><%= tm.description %><br></small></p>
+      <p><small><em><%= tm.author %></em></small></p>
+      <hr>
+    <% end %>
+  </div>
+</div>
 
-<br>
 
-<%= link_to 'New Messenger', new_messenger_path %>
