@@ -11,6 +11,24 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <% messengers = ['Telegram', 'Slack', 'HipChat'] %>
+    <% messengers.each do |day| %>
+      <%= form.check_box :messengers, { multiple: true, checked: true }, day, false %>
+      <%= day %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
