@@ -47,16 +47,6 @@ ActiveRecord::Schema.define(version: 2018_11_02_040003) do
     t.index ["article_id"], name: "index_slacks_on_article_id"
   end
 
-  create_table "telegram_rooms", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "author"
-    t.integer "article_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_telegram_rooms_on_article_id"
-  end
-
   create_table "telegrams", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -74,7 +64,7 @@ ActiveRecord::Schema.define(version: 2018_11_02_040003) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "verification", default: "false"
+    t.boolean "verification", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

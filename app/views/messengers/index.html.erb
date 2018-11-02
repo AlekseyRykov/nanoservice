@@ -24,10 +24,8 @@
     <% @telegram.each do |tm| %>
       <h5><%= link_to tm.title, tm %></h5>
       <p><small><%= tm.description %><br></small></p>
-      <p><small><em><%= tm.author %></em></small></p>
+      <p><small><em>Author: <%= tm.author %></em></small></p>
       <hr>
     <% end %>
   </div>
 </div>
-
-
