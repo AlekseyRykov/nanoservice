@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :hipchats
+  resources :slacks
+  resources :telegrams
+  resources :messengers
   devise_for :users
 
   root to: "articles#index"

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Telegrams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Author</th>
+      <th>Article</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @telegrams.each do |telegram| %>
+      <tr>
+        <td><%= telegram.title %></td>
+        <td><%= telegram.description %></td>
+        <td><%= telegram.author %></td>
+        <td><%= telegram.article %></td>
+        <td><%= link_to 'Show', telegram %></td>
+        <td><%= link_to 'Edit', edit_telegram_path(telegram) %></td>
+        <td><%= link_to 'Destroy', telegram, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Telegram', new_telegram_path %>

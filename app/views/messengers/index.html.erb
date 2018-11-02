@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Messengers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @messengers.each do |messenger| %>
+      <tr>
+        <td><%= link_to 'Show', messenger %></td>
+        <td><%= link_to 'Edit', edit_messenger_path(messenger) %></td>
+        <td><%= link_to 'Destroy', messenger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Messenger', new_messenger_path %>

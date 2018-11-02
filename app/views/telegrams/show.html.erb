@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @telegram.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @telegram.description %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @telegram.author %>
+</p>
+
+<p>
+  <strong>Article:</strong>
+  <%= @telegram.article %>
+</p>
+
+<%= link_to 'Edit', edit_telegram_path(@telegram) %> |
+<%= link_to 'Back', telegrams_path %>
