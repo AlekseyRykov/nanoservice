@@ -12,13 +12,15 @@
       <% if user_signed_in? %>
         <li>Hello, <%= current_user.username %></li>
         <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
-        <li>Verification: <%= current_user.verification? %></li>
-        <li></li>
+        <li><%= link_to 'Verification', edit_user_path(current_user) %>: <%= current_user.verification? %></li>
       <% else %>
         <li><%= link_to 'Sign in', new_user_session_path %></li>
         <li><%= link_to 'Sign up', new_user_registration_path %></li>
       <% end %>
     </ul>
+
+
+    <p><%= link_to 'Main page', articles_path %> | <%= link_to 'Messengers', messengers_path %></p>
 
   </head>
 

@@ -1,0 +1,14 @@
+<%= form_with model: @user, local: true do |form| %>
+
+  <p>
+    <%= form.label :verification %>
+    <%= form.radio_button :verification, 'true' %> true
+    <%= form.radio_button :verification, 'false' %> false
+  </p>
+
+
+  <p>
+    <%= form.submit 'Update verification' %>
+  </p>
+
+<% end %>

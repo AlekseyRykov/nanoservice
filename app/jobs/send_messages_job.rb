@@ -15,7 +15,8 @@ class SendMessagesJob < ApplicationJob
     message = Article.find(args[0])
     @id = message.user_id
 
-    if User.find(@id).verification == 'false'
+    user = User.find(@id)
+    if user.verification
 
       @title = message.title
       @description = message.description
@@ -25,10 +26,10 @@ class SendMessagesJob < ApplicationJob
         send_message.call(Slack) if message.messengers.include? 'Slack'
         send_message.call(Hipchat) if message.messengers.include? 'HipChat'
       else
-        puts 'WARN: title or description is empty'
+        puts "WARN: An article(#{message.id}) title or description is empty"
       end
     else
-      puts 'WARN: user is not verified'
+      puts "WARN: user(#{user.id}) is not verified"
     end
   end
 end
