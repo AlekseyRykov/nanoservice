@@ -1,9 +1,9 @@
 class Article < ApplicationRecord
   belongs_to :user
 
-  has_many :hipchats
-  has_many :telegrams
-  has_many :slacks
+  has_many :hipchats, dependent: :destroy
+  has_many :telegrams, dependent: :destroy
+  has_many :slacks, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true

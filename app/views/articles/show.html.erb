@@ -18,5 +18,12 @@
   <%= @article.updated_at %>
 </p>
 
+<p>
+  <strong>Messengers status:</strong>
+  Hipchat: <%= @article.hipchat_status %> |
+  Slack: <%= @article.slack_status %> |
+  Telegram: <%= @article.telegram_status %>
+</p>
+
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>

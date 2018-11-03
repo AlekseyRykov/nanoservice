@@ -17,6 +17,9 @@ ActiveRecord::Schema.define(version: 2018_11_02_040003) do
     t.text "description"
     t.integer "user_id"
     t.string "messengers"
+    t.string "hipchat_status"
+    t.string "slack_status"
+    t.string "telegram_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"

@@ -22,7 +22,7 @@
   </div>
 
   <div class="field">
-    <% messengers = ['Telegram', 'Slack', 'HipChat'] %>
+    <% messengers = ['Telegram', 'Slack', 'Hipchat'] %>
     <% messengers.each do |day| %>
       <%= form.check_box :messengers, { multiple: true, checked: true }, day, false %>
       <%= day %>
