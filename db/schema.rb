@@ -35,11 +35,6 @@ ActiveRecord::Schema.define(version: 2018_11_02_040003) do
     t.index ["article_id"], name: "index_hipchats_on_article_id"
   end
 
-  create_table "messengers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "slacks", force: :cascade do |t|
     t.string "title"
     t.text "description"
