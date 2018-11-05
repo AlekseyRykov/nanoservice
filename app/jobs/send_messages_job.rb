@@ -5,64 +5,37 @@ class SendMessagesJob < ApplicationJob
   # need refactoring
   after_perform do |check|
 
-    # searching article in messenger, if exists, add status and send custom message to log file
-    if Hipchat.exists?(article_id:@article_id)
+    # add delivery status and send custom message to log file
+    add_status = lambda do |room, s|
       status = Article.find(@article_id)
-      status.hipchat_status = "Delivered"
+      if room == 'Hipchat'
+        status.hipchat_status = "#{s}"
+      elsif room == 'Slack'
+        status.slack_status = "#{s}"
+      elsif room == 'Telegram'
+        status.telegram_status = "#{s}"
+      end
       status.save
-      puts "Article(#{@article_id}) delivered to hipchat"
+      puts "Article(#{@article_id}) => #{room} - #{s}"
+    end
 
-    # searching article in messenger, if not exists or skipped, add status and send custom message to log file
-    else
-      status = Article.find(@article_id)
-      if @message.messengers.include? 'Hipchat'
-        status.hipchat_status = "Not delivered"
-        status.save
-        puts "Article(#{@article_id}) not delivered to hipchat"
-      elsif !@message.messengers.include? 'Hipchat'
-        status.hipchat_status = "Skipped"
-        status.save
-        puts "Article(#{@article_id}) skipped for hipchat"
+    # searching article in messenger, if exists, not exists or skipped, call lambda add_status
+    check_delivery = lambda do |room|
+      if room.exists?(article_id:@article_id)
+        add_status.call("#{room}", 'delivered')
+      else
+        if @message.messengers.include? "#{room}"
+          add_status.call("#{room}", 'not delivered')
+        else
+          add_status.call("#{room}", 'skipped')
+        end
       end
     end
 
-    # same logic as for hipchat
-    if Slack.exists?(article_id:@article_id)
-      status = Article.find(@article_id)
-      status.slack_status = "Delivered"
-      status.save
-      puts "Article(#{@article_id}) delivered to slack"
-    else
-      status = Article.find(@article_id)
-      if @message.messengers.include? 'Slack'
-        status.slack_status = "Not delivered"
-        status.save
-        puts "Article(#{@article_id}) not delivered to slack"
-      elsif !@message.messengers.include? 'Slack'
-        status.slack_status = "Skipped"
-        status.save
-        puts "Article(#{@article_id}) skipped for slack"
-      end
-    end
-
-    # same logic as for hipchat
-    if Telegram.exists?(article_id:@article_id)
-      status = Article.find(@article_id)
-      status.telegram_status = "Delivered"
-      status.save
-      puts "Article(#{@article_id}) delivered to telegram"
-    else
-      status = Article.find(@article_id)
-      if @message.messengers.include? 'Telegram'
-        status.telegram_status = "Not delivered"
-        status.save
-        puts "Article(#{@article_id}) not delivered to telegram"
-      elsif !@message.messengers.include? 'Telegram'
-        status.telegram_status = "Skipped"
-        status.save
-        puts "Article(#{@article_id}) skipped for telegram"
-      end
-    end
+    # choosing messengers, checking delivery and adding statuses
+    check_delivery.call(Telegram)
+    check_delivery.call(Slack)
+    check_delivery.call(Hipchat)
   end
 
   def perform(*args)
